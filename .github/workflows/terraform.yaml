@@ -7,8 +7,6 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    env:
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
     
     steps:
     - uses: actions/checkout@v3
@@ -19,9 +17,11 @@ jobs:
       run: terraform fmt -check
       continue-on-error: true
     
-    - name: GCL Login
-      id: gcp_login
-      run: gcloud auth application-default login
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
     - name: Terraform Init
       id: init
