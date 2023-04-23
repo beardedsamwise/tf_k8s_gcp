@@ -5,17 +5,10 @@ defaults:
 permissions:
   pull-requests: write
 jobs:
-  gcloud_login:
-  runs-on: ubuntu-latest
-  
-  env:
-    GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-  steps:
-  - name: GCP Login
-    run: gcloud auth application-default login
-   
   terraform:
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
     
     steps:
     - uses: actions/checkout@v3
@@ -25,6 +18,10 @@ jobs:
       id: fmt
       run: terraform fmt -check
       continue-on-error: true
+    
+    - name: GCL Login
+      id: gcp_login
+      run: gcloud auth application-default login
 
     - name: Terraform Init
       id: init
