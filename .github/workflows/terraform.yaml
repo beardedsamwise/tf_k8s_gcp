@@ -72,10 +72,3 @@ jobs:
             repo: context.repo.repo,
             body: output
           })
-    - name: Terraform Apply
-      on:
-        push:
-          branches:    
-            - main
-      id: apply
-      run: terraform apple -no-color -auto-approve         
