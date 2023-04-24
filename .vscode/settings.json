@@ -1,6 +1,0 @@
-{
-    "yaml.schemas": {
-        "kubernetes": "*.yaml",
-        "https://json.schemastore.org/github-action.json": "file:///Users/sam.bentley%40contino.io/Desktop/tf_k8s_gcp/.github/workflows/terraform.yaml"
-    }
-}
